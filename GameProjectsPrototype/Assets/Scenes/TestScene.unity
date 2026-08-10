@@ -415,6 +415,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7125778255401213553, guid: a095a35380139ea478da976d26d08c65, type: 3}
+      propertyPath: _gravity
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125778255401213553, guid: a095a35380139ea478da976d26d08c65, type: 3}
+      propertyPath: _jumpHeight
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7669102516601293152, guid: a095a35380139ea478da976d26d08c65, type: 3}
       propertyPath: field of view
       value: 60
