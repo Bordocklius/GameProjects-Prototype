@@ -25,7 +25,7 @@ namespace Assets.Scripts.Character
             if (_characterBody == null)
                 _characterBody = transform.parent;
 
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnEnable()
@@ -44,12 +44,6 @@ namespace Assets.Scripts.Character
         {
             HandleCameraRotation();
         }
-
-        private void PlayerInput_Look(InputAction.CallbackContext context)
-        {
-            _lookInput = context.ReadValue<Vector2>();
-        }
-
         private void HandleCameraRotation()
         {
             // Rotate character body left/right
@@ -61,5 +55,11 @@ namespace Assets.Scripts.Character
 
             transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         }
+
+        private void PlayerInput_Look(InputAction.CallbackContext context)
+        {
+            _lookInput = context.ReadValue<Vector2>();
+        }
+
     }
 }

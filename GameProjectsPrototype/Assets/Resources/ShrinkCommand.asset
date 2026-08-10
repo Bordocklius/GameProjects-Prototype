@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b8428b3f39b9514c88f4ded2ef3df2b, type: 3}
-  m_Name: Grow Command
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commands.GrowthCommand
-  CommandWord: Grow
+  m_Script: {fileID: 11500000, guid: 7829a2bc4f00ccc4db231fa2943e0be6, type: 3}
+  m_Name: ShrinkCommand
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commands.ShrinkCommand
+  CommandWord: shrink
