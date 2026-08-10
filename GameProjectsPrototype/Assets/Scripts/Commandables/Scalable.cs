@@ -1,15 +1,22 @@
-﻿using System;
+﻿using Assets.Scripts.Commands;
+using Assets.Scripts.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
-    public class Scalable: MonoBehaviour
+    public class Scalable: MonoBehaviour, ICommandTarget
     {
         [SerializeField] private float _growAmount = 1f;
         private float _minScale = 0.5f;
         private float _maxScale = 5f;
+
+        public bool TryGetCapability<T>(out T capability) where T : Component
+        {
+            throw new NotImplementedException();
+        }
 
         public void Grow()
         {
@@ -20,6 +27,8 @@ namespace Assets.Scripts.Commandables
         {
             ChangeSize(-_growAmount);
         }
+
+        
 
         private void ChangeSize(float amount)
         {

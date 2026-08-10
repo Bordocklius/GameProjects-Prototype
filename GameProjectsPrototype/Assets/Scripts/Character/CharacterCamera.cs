@@ -1,3 +1,4 @@
+using Assets.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +11,13 @@ namespace Assets.Scripts.Character
 
         [Space(10), Header("Camera Settings")]
         [SerializeField] private Transform _characterBody;
+        [SerializeField] private Camera _camera;
         [SerializeField] private float _mouseSensitivity = 2f;
         [SerializeField] private float _minVerticalAngle = -90f;
         [SerializeField] private float _maxVerticalAngle = 90f;
+
+        [Space(10), Header("Crosshair settings")]
+        [SerializeField] private RectTransform _crosshair;
 
         private float _rotationX;
         private Vector2 _lookInput;
@@ -25,19 +30,25 @@ namespace Assets.Scripts.Character
             if (_characterBody == null)
                 _characterBody = transform.parent;
 
-            //Cursor.lockState = CursorLockMode.Locked;
+            if (_camera == null)
+                _camera = Camera.main;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnEnable()
         {
             _playerInput.actions["Look"].performed += PlayerInput_Look;
             _playerInput.actions["Look"].canceled += PlayerInput_Look;
+
+            _playerInput.actions["Attack"].performed += PlayerInput_Attack;
         }
 
         private void OnDisable()
         {
             _playerInput.actions["Look"].performed -= PlayerInput_Look;
             _playerInput.actions["Look"].canceled -= PlayerInput_Look;
+
+            _playerInput.actions["Attack"].performed -= PlayerInput_Attack;
         }
 
         private void Update()
@@ -61,5 +72,15 @@ namespace Assets.Scripts.Character
             _lookInput = context.ReadValue<Vector2>();
         }
 
+        private void PlayerInput_Attack(InputAction.CallbackContext ctx)
+        {
+            Ray ray = _camera.ScreenPointToRay(_crosshair.position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                if (hit.collider.TryGetComponent<ICommandTarget>(out var target))
+                    Debug.Log("Commandable");
+            }
+        }
     }
 }

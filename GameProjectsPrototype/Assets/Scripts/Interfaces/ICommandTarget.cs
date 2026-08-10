@@ -1,24 +1,11 @@
 
 using Assets.Scripts.Commands;
+using UnityEngine;
 
 namespace Assets.Scripts.Interfaces
 {
-    public enum CodeWord
-    {
-        Destroy,
-        Mass,
-        Lighten,
-        Glow,
-        Stick,
-        Grow,
-        Shrink,
-        Throw,
-        Cancel,
-        Rotate
-    }
-
     public interface ICommandTarget
     {
-        public bool CanExecuteCommand(CommandBase command);
+        public bool TryGetCapability<T>(out T capability) where T : Component;
     }
 }
