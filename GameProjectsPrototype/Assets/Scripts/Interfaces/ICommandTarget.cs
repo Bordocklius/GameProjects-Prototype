@@ -1,4 +1,6 @@
 
+using Assets.Scripts.Commands;
+
 namespace Assets.Scripts.Interfaces
 {
     public enum CodeWord
@@ -15,8 +17,8 @@ namespace Assets.Scripts.Interfaces
         Rotate
     }
 
-    public interface IInteractable
+    public interface ICommandTarget
     {
-        public void Interact(CodeWord codeWord);
+        public bool CanExecuteCommand(CommandBase command);
     }
 }
