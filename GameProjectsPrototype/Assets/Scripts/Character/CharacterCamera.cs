@@ -1,3 +1,4 @@
+using Assets.Scripts.Commands;
 using Assets.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -78,8 +79,12 @@ namespace Assets.Scripts.Character
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100f))
             {
-                if (hit.collider.TryGetComponent<ICommandTarget>(out var target))
+                GameObject obj = hit.collider.gameObject;
+                if (obj.TryGetComponent<ICommandTarget>(out var target))
+                {
                     Debug.Log("Commandable");
+                    CommandSystem.Instance.SetTarget(obj);
+                }                   
             }
         }
     }
