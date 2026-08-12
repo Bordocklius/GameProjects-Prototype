@@ -1,5 +1,6 @@
 using Assets.Scripts.Commands;
 using Assets.Scripts.Interfaces;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Character
     {
         [Space(10), Header("Input Actions")]
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private PlayerInputHandler _playerInputHandler;
 
         [Space(10), Header("Camera Settings")]
         [SerializeField] private Transform _characterBody;
@@ -38,18 +40,14 @@ namespace Assets.Scripts.Character
 
         private void OnEnable()
         {
-            _playerInput.actions["Look"].performed += PlayerInput_Look;
-            _playerInput.actions["Look"].canceled += PlayerInput_Look;
-
-            _playerInput.actions["Attack"].performed += PlayerInput_Attack;
+            _playerInputHandler.Look += PlayerInput_Look;
+            _playerInputHandler.Attack += PlayerInput_Attack;
         }
 
         private void OnDisable()
         {
-            _playerInput.actions["Look"].performed -= PlayerInput_Look;
-            _playerInput.actions["Look"].canceled -= PlayerInput_Look;
-
-            _playerInput.actions["Attack"].performed -= PlayerInput_Attack;
+            _playerInputHandler.Look -= PlayerInput_Look;
+            _playerInputHandler.Attack -= PlayerInput_Attack;
         }
 
         private void Update()
@@ -68,12 +66,12 @@ namespace Assets.Scripts.Character
             transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         }
 
-        private void PlayerInput_Look(InputAction.CallbackContext context)
+        private void PlayerInput_Look(object sender, Vector2 e)
         {
-            _lookInput = context.ReadValue<Vector2>();
+            _lookInput = e;
         }
 
-        private void PlayerInput_Attack(InputAction.CallbackContext ctx)
+        private void PlayerInput_Attack(object sender, EventArgs e)
         {
             Ray ray = _camera.ScreenPointToRay(_crosshair.position);
             RaycastHit hit;
@@ -84,6 +82,7 @@ namespace Assets.Scripts.Character
                 {
                     Debug.Log("Commandable");
                     CommandSystem.Instance.SetTarget(obj);
+                    CommandInput.Instance.Activate();
                 }                   
             }
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Character
@@ -7,6 +8,7 @@ namespace Assets.Scripts.Character
     {
         [Space(10), Header("Input Actions")]
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private PlayerInputHandler _playerInputHandler;
 
         [Space(10), Header("Movement Settings")]
         [SerializeField] private CharacterController _cc;
@@ -28,14 +30,21 @@ namespace Assets.Scripts.Character
 
             if (_mainCamera == null)
                 _mainCamera = Camera.main;
+
+            if (_playerInputHandler == null)
+                _playerInputHandler = GetComponent<PlayerInputHandler>();
         }
 
         private void OnEnable()
         {
-            _playerInput.actions["Move"].performed += PlayerInput_Move;
-            _playerInput.actions["Move"].canceled += PlayerInput_Move;
+            _playerInputHandler.Move += PlayerInput_Move;
+            _playerInputHandler.Jump += PlayerInput_Jump;
+        }
 
-            _playerInput.actions["Jump"].performed += PlayerInput_Jump;
+        private void OnDisable()
+        {
+            _playerInputHandler.Move -= PlayerInput_Move;
+            _playerInputHandler.Jump -= PlayerInput_Jump;
         }
 
         private void Start()
@@ -76,12 +85,12 @@ namespace Assets.Scripts.Character
             }
         }
 
-        private void PlayerInput_Move(InputAction.CallbackContext ctx)
+        private void PlayerInput_Move(object sender, Vector2 e)
         {
-            _moveInput = ctx.ReadValue<Vector2>();
+            _moveInput = e;
         }
 
-        private void PlayerInput_Jump(InputAction.CallbackContext ctx)
+        private void PlayerInput_Jump(object sender, EventArgs e)
         {
             if (!_cc.isGrounded)
                 return;

@@ -675,6 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterMovement
   _playerInput: {fileID: 340976703}
+  _playerInputHandler: {fileID: 340976705}
   _cc: {fileID: 340976704}
   _mainCamera: {fileID: 1648046081}
   _movespeed: 10
@@ -735,6 +736,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &340976705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340976700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e42191d6ca94b4e90ad66e6e2a284c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.PlayerInputHandler
+  _playerInput: {fileID: 340976703}
 --- !u!1 &447056376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1130,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &1064213686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4375031921423221011, guid: a095a35380139ea478da976d26d08c65, type: 3}
+  m_PrefabInstance: {fileID: 943462835220405912}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1452205476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1452205478}
   - component: {fileID: 1452205477}
+  - component: {fileID: 1452205479}
   m_Layer: 0
   m_Name: CommandSystem
   m_TagString: Untagged
@@ -1163,11 +1183,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452205479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452205476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6f6eadbe11c6c49850e78c492c7aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commands.CommandInput
+  _inputfield: {fileID: 109535636}
+  _playerInputHandler: {fileID: 340976705}
 --- !u!20 &1648046081 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3790372022133125468, guid: a095a35380139ea478da976d26d08c65, type: 3}
   m_PrefabInstance: {fileID: 943462835220405912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1648046086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064213686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344430a02906a084d9f6582df36e2b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Character.CharacterCamera
+  _playerInput: {fileID: 340976703}
+  _playerInputHandler: {fileID: 340976705}
+  _characterBody: {fileID: 1990765749}
+  _camera: {fileID: 1648046081}
+  _mouseSensitivity: 0.2
+  _minVerticalAngle: -90
+  _maxVerticalAngle: 90
+  _crosshair: {fileID: 135811934}
 --- !u!1 &1694284012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1690,7 @@ PrefabInstance:
     - {fileID: 2337369221105297734, guid: a095a35380139ea478da976d26d08c65, type: 3}
     - {fileID: 3975512282596653146, guid: a095a35380139ea478da976d26d08c65, type: 3}
     - {fileID: 7470519284553948529, guid: a095a35380139ea478da976d26d08c65, type: 3}
+    - {fileID: 5919442973916062259, guid: a095a35380139ea478da976d26d08c65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4979183716088442650, guid: a095a35380139ea478da976d26d08c65, type: 3}
@@ -1650,7 +1705,13 @@ PrefabInstance:
       addedObject: {fileID: 340976703}
     - targetCorrespondingSourceObject: {fileID: 4221386088530687059, guid: a095a35380139ea478da976d26d08c65, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 340976705}
+    - targetCorrespondingSourceObject: {fileID: 4221386088530687059, guid: a095a35380139ea478da976d26d08c65, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 340976702}
+    - targetCorrespondingSourceObject: {fileID: 4375031921423221011, guid: a095a35380139ea478da976d26d08c65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1648046086}
   m_SourcePrefab: {fileID: 100100000, guid: a095a35380139ea478da976d26d08c65, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
