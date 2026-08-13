@@ -31,13 +31,13 @@ namespace Assets.Scripts.Commands
 
         private void OnEnable()
         {
-            _playerInputHandler.SubmitCommand += PlayerInput_SubmitCommand;
+            //_playerInputHandler.SubmitCommand += PlayerInput_SubmitCommand;
             _playerInputHandler.CancelCommand += PlayerInput_CancelCommand;
         }
 
         private void OnDisable()
         {
-            _playerInputHandler.SubmitCommand -= PlayerInput_SubmitCommand;
+            //_playerInputHandler.SubmitCommand -= PlayerInput_SubmitCommand;
             _playerInputHandler.CancelCommand -= PlayerInput_CancelCommand;
         }
 
@@ -65,16 +65,23 @@ namespace Assets.Scripts.Commands
             _inputfield.DeactivateInputField();
             EventSystem.current.SetSelectedGameObject(null);
             _playerInputHandler.SwitchToPlayMode();
+
+            _inputfield.text = "";
+            _inputfield.gameObject.SetActive(false);
         }
 
-        public void PlayerInput_SubmitCommand(object sender, EventArgs e)
+        public void PlayerInput_SubmitCommand()
         {
             string input = _inputfield.text;
 
             CommandSystem.Instance.ExecuteCommand(input);
 
-            _inputfield.text = "";
-            _inputfield.gameObject.SetActive(false);
+            Deactivate();            
+        }
+
+        public void PlayerInput_SubmitCommand(object sender, EventArgs e)
+        {
+            PlayerInput_SubmitCommand();
         }
 
         public void PlayerInput_CancelCommand(object sender, EventArgs e)

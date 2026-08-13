@@ -62,12 +62,14 @@ namespace Assets.Scripts.Character
         {
             InCommandMode = false;
             _playerInput.SwitchCurrentActionMap("Player");
+            Debug.Log($"Current action map: {_playerInput.currentActionMap.name}");
         }
 
         public void SwitchToCommandMode()
         {
             InCommandMode = true;
             _playerInput.SwitchCurrentActionMap("Command");
+            Debug.Log($"Current action map: {_playerInput.currentActionMap.name}");
         }
         
         private void PlayerInput_Move(InputAction.CallbackContext ctx)

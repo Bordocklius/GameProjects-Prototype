@@ -10,8 +10,16 @@ namespace Assets.Scripts.Commandables
     public class Scalable: MonoBehaviour, ICommandTarget
     {
         [SerializeField] private float _growAmount = 1f;
-        private float _minScale = 0.5f;
-        private float _maxScale = 5f;
+        [SerializeField] private Rigidbody _rb;
+
+        [SerializeField] private float _minScale = 0.5f;
+        [SerializeField] private float _maxScale = 5f;
+
+        private void Awake()
+        {
+            if(_rb == null)
+                _rb = GetComponent<Rigidbody>();
+        }
 
         public bool TryGetCapability<T>(out T capability) where T : Component
         {
@@ -32,10 +40,22 @@ namespace Assets.Scripts.Commandables
 
         private void ChangeSize(float amount)
         {
+            float oldscale = transform.localScale.x;
             float newScale = transform.localScale.x + amount;
             newScale = Mathf.Clamp(newScale, _minScale, _maxScale)  ;
 
+            float actualChange = newScale - oldscale;
+
             transform.localScale = Vector3.one * newScale;
+
+            // Compensate for larger scale if scaling up
+            if(actualChange > 0f)
+            {
+                Vector3 pos = _rb.position;
+                pos.y += actualChange / 2f;
+
+                _rb.MovePosition(pos);
+            }
         }
     }
 }

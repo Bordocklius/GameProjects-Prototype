@@ -17,7 +17,7 @@ namespace Assets.Scripts.Commands
 
         public override void ExecuteCommand(GameObject target)
         {
-            if(!target.TryGetComponent<Scalable>(out var scalable))
+            if(target.TryGetComponent<Scalable>(out var scalable))
             {
                 scalable.Grow();
             }
