@@ -72,6 +72,7 @@ namespace Assets.Scripts.Commands
 
             // Execute and reset target
             command.ExecuteCommand(_target);
+            Debug.Log($"{input} command executed");
             _target = null;
         }
 

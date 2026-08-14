@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Commandables;
-using Assets.Scripts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,19 +6,19 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commands
 {
-    [CreateAssetMenu(fileName = "GrowCommand", menuName = "Commands/Grow Command")]
-    public class GrowthCommand : CommandBase
+    [CreateAssetMenu(fileName = "LightenCommand", menuName = "Commands/Lighten Command")]
+    public class LightenCommand : CommandBase
     {
         public override bool CanExecuteCommand(GameObject target)
         {
-            return target.TryGetComponent<Scalable>(out _);
+            return target.TryGetComponent<Massable>(out _);
         }
 
         public override void ExecuteCommand(GameObject target)
         {
-            if(target.TryGetComponent<Scalable>(out var scalable))
+            if (target.TryGetComponent<Massable>(out var massable))
             {
-                scalable.Grow();
+                massable.DecreaseMass(); ;
             }
         }
     }

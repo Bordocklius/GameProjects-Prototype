@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
-    public class Scalable: MonoBehaviour, ICommandTarget
+    public class Scalable: MonoBehaviour
     {
         [SerializeField] private float _growAmount = 1f;
         [SerializeField] private Rigidbody _rb;
@@ -19,11 +19,6 @@ namespace Assets.Scripts.Commandables
         {
             if(_rb == null)
                 _rb = GetComponent<Rigidbody>();
-        }
-
-        public bool TryGetCapability<T>(out T capability) where T : Component
-        {
-            throw new NotImplementedException();
         }
 
         public void Grow()

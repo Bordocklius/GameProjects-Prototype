@@ -1249,6 +1249,7 @@ GameObject:
   - component: {fileID: 1694284014}
   - component: {fileID: 1694284019}
   - component: {fileID: 1694284013}
+  - component: {fileID: 1694284020}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1404,6 +1405,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43859dbe7b06e21488e4c759ad0c4ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.CommandTarget
+--- !u!114 &1694284020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694284012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3075891d78de214bab8ed1cd0d07a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Massable
+  _massChange: 1
+  _rb: {fileID: 1694284014}
+  _minMass: 0.5
+  _maxMass: 5
 --- !u!1 &1818390554
 GameObject:
   m_ObjectHideFlags: 0
