@@ -1,3 +1,4 @@
+using Assets.Scripts.Commandables;
 using Assets.Scripts.Commands;
 using Assets.Scripts.Interfaces;
 using System;
@@ -21,9 +22,14 @@ namespace Assets.Scripts.Character
 
         [Space(10), Header("Crosshair settings")]
         [SerializeField] private RectTransform _crosshair;
+        [SerializeField] private Transform _carryPoint;
+        [SerializeField] private float _commandRange = 50f;
+        [SerializeField] private float _carryRange = 10f;
 
         private float _rotationX;
         private Vector2 _lookInput;
+        private bool _isCarrying;
+        private Pickupable _carrying;
 
         private void Awake()
         {
@@ -42,12 +48,14 @@ namespace Assets.Scripts.Character
         {
             _playerInputHandler.Look += PlayerInput_Look;
             _playerInputHandler.Attack += PlayerInput_Attack;
+            _playerInputHandler.Interact += PlayerInput_Interact;
         }
 
         private void OnDisable()
         {
             _playerInputHandler.Look -= PlayerInput_Look;
             _playerInputHandler.Attack -= PlayerInput_Attack;
+            _playerInputHandler.Interact -= PlayerInput_Interact;
         }
 
         private void Update()
@@ -75,7 +83,7 @@ namespace Assets.Scripts.Character
         {
             Ray ray = _camera.ScreenPointToRay(_crosshair.position);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100f))
+            if (Physics.Raycast(ray, out hit, _commandRange))
             {
                 GameObject obj = hit.collider.gameObject;
                 if (obj.TryGetComponent<ICommandTarget>(out var target))
@@ -85,6 +93,36 @@ namespace Assets.Scripts.Character
                     CommandInput.Instance.Activate();
                 }                   
             }
+        }
+
+        private void PlayerInput_Interact(object sender, EventArgs e)
+        {
+            // Drop carrying object if carrying one
+            if(_isCarrying)
+            {
+                _isCarrying = false;
+                _carrying.Drop();
+                _carrying = null;
+                return;
+            }
+
+            Ray ray = _camera.ScreenPointToRay(_crosshair.position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, _carryRange))
+            {
+                GameObject obj = hit.collider.gameObject;
+                if(obj.TryGetComponent<Pickupable>(out var target))
+                {
+                    HandlePickup(target);
+                }
+            }
+        }
+
+        private void HandlePickup(Pickupable target)
+        {
+            _carrying = target;
+            _isCarrying = true;
+            _carrying.PickUp(_carryPoint);
         }
     }
 }

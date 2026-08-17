@@ -14,6 +14,7 @@ namespace Assets.Scripts.Character
         public event EventHandler<Vector2> Look;
         public event EventHandler Jump;
         public event EventHandler Attack;
+        public event EventHandler Interact;
 
         public event EventHandler SubmitCommand;
         public event EventHandler CancelCommand;
@@ -38,6 +39,8 @@ namespace Assets.Scripts.Character
 
             _playerInput.actions["Attack"].performed += PlayerInput_Attack;
 
+            _playerInput.actions["Interact"].performed += PlayerInput_Interact;
+
             _playerInput.actions["Submit"].performed += PlayerInput_Submit;
             _playerInput.actions["Cancel"].performed += PlayerInput_Cancel;
         }
@@ -53,6 +56,8 @@ namespace Assets.Scripts.Character
             _playerInput.actions["Look"].canceled -= PlayerInput_Look;
 
             _playerInput.actions["Attack"].performed -= PlayerInput_Attack;
+
+            _playerInput.actions["Interact"].performed -= PlayerInput_Interact;
 
             _playerInput.actions["Submit"].performed -= PlayerInput_Submit;
             _playerInput.actions["Cancel"].performed -= PlayerInput_Cancel;
@@ -99,6 +104,11 @@ namespace Assets.Scripts.Character
         private void PlayerInput_Cancel(InputAction.CallbackContext ctx)
         {
             CancelCommand?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void PlayerInput_Interact(InputAction.CallbackContext ctx)
+        {
+            Interact?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -29,9 +29,7 @@ namespace Assets.Scripts.Commandables
         public void Shrink()
         {
             ChangeSize(-_growAmount);
-        }
-
-        
+        }        
 
         private void ChangeSize(float amount)
         {
