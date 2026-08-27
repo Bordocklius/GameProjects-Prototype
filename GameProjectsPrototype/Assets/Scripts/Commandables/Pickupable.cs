@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Pickupable : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rb;
