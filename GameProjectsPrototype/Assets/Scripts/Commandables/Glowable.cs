@@ -62,6 +62,14 @@ namespace Assets.Scripts.Commandables
                 _light.enabled = true;
         }
 
+        public void DisableGlow()
+        {
+            SetEmission(false);
+
+            if (_light.enabled)
+                _light.enabled = false;
+        }
+
         private void SetEmission(bool enabled)
         {
             _renderer.GetPropertyBlock(_matPropertyBlock);
