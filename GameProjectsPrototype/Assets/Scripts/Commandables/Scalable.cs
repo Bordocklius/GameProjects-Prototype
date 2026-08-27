@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Scalable: MonoBehaviour
     {
         [SerializeField] private float _growAmount = 1f;

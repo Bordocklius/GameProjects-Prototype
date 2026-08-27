@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Massable : MonoBehaviour
     {
         [SerializeField] private float _massChange;
