@@ -2933,6 +2933,8 @@ MonoBehaviour:
   - Lighten
   - Grow
   - Shrink
+  - Glow
+  - Dim
 --- !u!1001 &943462835220405912
 PrefabInstance:
   m_ObjectHideFlags: 0
