@@ -6,15 +6,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
-    [RequireComponent(typeof(CommandTarget))]
-    [RequireComponent(typeof(Rigidbody))]
     public class Massable : MonoBehaviour
     {
-        [SerializeField] private float _massChange;
+        [Header("References")]
         [SerializeField] private Rigidbody _rb;
 
+        [Header("Mass Settings")]
+        [SerializeField] private float _massChange = 1f;
         [SerializeField] private float _minMass = 0.5f;
         [SerializeField] private float _maxMass = 5f;
+
+        public float CurrentMass => _rb.mass;
+        public float MinMass => _minMass;
+        public float MaxMass => _maxMass;
+
+        public bool IsAtMaxMass =>
+            Mathf.Approximately(_rb.mass, _maxMass);
 
         private void Awake()
         {
@@ -34,9 +41,13 @@ namespace Assets.Scripts.Commandables
 
         private void ChangeMass(float amount)
         {
-            float oldMass = _rb.mass;
             float newMass = _rb.mass + amount;
-            newMass = Mathf.Clamp(newMass, _minMass, _maxMass);
+
+            newMass = Mathf.Clamp(
+                newMass,
+                _minMass,
+                _maxMass
+            );
 
             _rb.mass = newMass;
         }
