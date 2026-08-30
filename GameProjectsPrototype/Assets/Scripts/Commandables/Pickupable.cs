@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(CommandTarget))]
     [RequireComponent(typeof(Rigidbody))]
     public class Pickupable : MonoBehaviour
     {

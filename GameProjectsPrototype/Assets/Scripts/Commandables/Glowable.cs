@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(CommandTarget))]
     public class Glowable : MonoBehaviour
     {
         [SerializeField] private float _glowIncrease;
