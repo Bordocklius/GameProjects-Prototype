@@ -24,11 +24,14 @@ namespace Assets.Scripts.Commandables
 
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
-
-            CreateLight();
+            _renderer = GetComponent<Renderer>();           
 
             _matPropertyBlock = new MaterialPropertyBlock();
+        }
+
+        private void Start()
+        {
+            CreateLight();
         }
 
         private void CreateLight()
@@ -43,8 +46,8 @@ namespace Assets.Scripts.Commandables
             // Create light and set up according to settings
             GameObject light = new GameObject("Glow Light");
             light.transform.SetParent(this.transform);
-            light.transform.position = Vector3.zero;
-            light.transform.rotation = Quaternion.identity;
+            light.transform.position = transform.position;
+            light.transform.rotation = transform.rotation;
 
             _light = light.AddComponent<Light>();
             _light.type = LightType.Point;
@@ -53,11 +56,13 @@ namespace Assets.Scripts.Commandables
             _light.range = _lightRange;
 
             _light.enabled = false;
+            Debug.Log(_light.transform.position);
         }
 
         public void EnableGlow()
         {
             SetEmission(true);
+            Debug.Log(_light.transform.position);
 
             if (!_light.enabled)
                 _light.enabled = true;

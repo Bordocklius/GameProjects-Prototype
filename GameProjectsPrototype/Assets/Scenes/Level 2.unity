@@ -2065,6 +2065,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 206f3231d3b72974c81181405436d99d, type: 2}
   - {fileID: 11400000, guid: c402b5a49d1487d4e845f12ab82d4a7e, type: 2}
   - {fileID: 11400000, guid: c2b1ae55159ca1440abdaa9498f131fb, type: 2}
+  - {fileID: 11400000, guid: 67fcaf8690c5d5f4c895a3ff3a90649d, type: 2}
+  - {fileID: 11400000, guid: a8eea00e702691546ac1bf2c118df6bb, type: 2}
 --- !u!4 &1452205478
 Transform:
   m_ObjectHideFlags: 0
@@ -2111,6 +2113,7 @@ GameObject:
   - component: {fileID: 1694284019}
   - component: {fileID: 1694284013}
   - component: {fileID: 1694284020}
+  - component: {fileID: 1694284022}
   m_Layer: 0
   m_Name: Weighted Cube
   m_TagString: Untagged
@@ -2207,7 +2210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e66c1c1f3b2533c4cb469502a06b302a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2278,8 +2281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3075891d78de214bab8ed1cd0d07a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Massable
-  _massChange: 1
   _rb: {fileID: 1694284014}
+  _massChange: 1
   _minMass: 0.5
   _maxMass: 5
 --- !u!114 &1694284021
@@ -2301,6 +2304,25 @@ MonoBehaviour:
   _heavyMaxVelocity: 1.5
   _velocityDamping: 10
   _massScalingPower: 2
+--- !u!114 &1694284022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694284012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be683e91b14ca5429ad26f522acfbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Glowable
+  _glowIncrease: 1
+  _minGlow: 0
+  _maxGlow: 5
+  _light: {fileID: 0}
+  _lightIntensity: 5
+  _lightColor: {r: 1, g: 1, b: 1, a: 1}
+  _lightRange: 10
 --- !u!1 &1739780375
 GameObject:
   m_ObjectHideFlags: 0
