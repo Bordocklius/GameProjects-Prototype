@@ -1,3 +1,4 @@
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactables
@@ -19,6 +20,9 @@ namespace Assets.Scripts.Interactables
         [Header("Movement")]
         [SerializeField] private float _moveSpeed = 5f;
 
+        [Header("UI")]
+        [SerializeField] private TutorialUI _tutorialUI;
+
         private bool _isActivated;
 
         private Vector3 _leftDoorStartPos;
@@ -34,36 +38,17 @@ namespace Assets.Scripts.Interactables
 
         private void Update()
         {
-            Vector3 leftDoorTarget = _isActivated
-                ? _leftDoorStartPos + Vector3.left * _doorMoveDistance
-                : _leftDoorStartPos;
+            Vector3 leftDoorTarget = _isActivated ? _leftDoorStartPos + Vector3.left * _doorMoveDistance : _leftDoorStartPos;
 
-            Vector3 rightDoorTarget = _isActivated
-                ? _rightDoorStartPos + Vector3.right * _doorMoveDistance
-                : _rightDoorStartPos;
+            Vector3 rightDoorTarget = _isActivated ? _rightDoorStartPos + Vector3.right * _doorMoveDistance : _rightDoorStartPos;
 
-            Vector3 buttonTarget = _isActivated
-                ? _buttonStartPos + Vector3.down * _buttonPressDistance
-                : _buttonStartPos;
+            Vector3 buttonTarget = _isActivated ? _buttonStartPos + Vector3.down * _buttonPressDistance : _buttonStartPos;
 
+            _leftDoor.localPosition = Vector3.Lerp(_leftDoor.localPosition, leftDoorTarget, Time.deltaTime * _moveSpeed);
 
-            _leftDoor.localPosition = Vector3.Lerp(
-                _leftDoor.localPosition,
-                leftDoorTarget,
-                Time.deltaTime * _moveSpeed
-            );
+            _rightDoor.localPosition = Vector3.Lerp(_rightDoor.localPosition, rightDoorTarget, Time.deltaTime * _moveSpeed);
 
-            _rightDoor.localPosition = Vector3.Lerp(
-                _rightDoor.localPosition,
-                rightDoorTarget,
-                Time.deltaTime * _moveSpeed
-            );
-
-            _buttonVisual.localPosition = Vector3.Lerp(
-                _buttonVisual.localPosition,
-                buttonTarget,
-                Time.deltaTime * _moveSpeed
-            );
+            _buttonVisual.localPosition = Vector3.Lerp(_buttonVisual.localPosition, buttonTarget, Time.deltaTime * _moveSpeed);
         }
 
         private void OnTriggerStay(Collider other)
@@ -80,14 +65,21 @@ namespace Assets.Scripts.Interactables
                     _isActivated = true;
                     Debug.Log($"Button activated! Mass: {rb.mass}");
                 }
+
+                if (_tutorialUI != null)
+                    _tutorialUI.SetHint("");
             }
             else
             {
                 if (_isActivated)
                 {
                     _isActivated = false;
-                    Debug.Log($"Not heavy enough. Mass: {rb.mass}");
                 }
+
+                Debug.Log($"Not heavy enough. Mass: {rb.mass}");
+
+                if (_tutorialUI != null)
+                    _tutorialUI.SetHint("Too light?");
             }
         }
 
@@ -100,6 +92,9 @@ namespace Assets.Scripts.Interactables
 
             _isActivated = false;
             Debug.Log("Object left the button.");
+
+            if (_tutorialUI != null)
+                _tutorialUI.SetHint("");
         }
     }
 }

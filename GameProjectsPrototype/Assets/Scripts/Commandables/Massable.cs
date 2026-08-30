@@ -15,6 +15,13 @@ namespace Assets.Scripts.Commandables
         [SerializeField] private float _minMass = 0.5f;
         [SerializeField] private float _maxMass = 5f;
 
+        public float CurrentMass => _rb.mass;
+        public float MinMass => _minMass;
+        public float MaxMass => _maxMass;
+
+        public bool IsAtMaxMass =>
+            Mathf.Approximately(_rb.mass, _maxMass);
+
         private void Awake()
         {
             if (_rb == null)
@@ -33,9 +40,13 @@ namespace Assets.Scripts.Commandables
 
         private void ChangeMass(float amount)
         {
-            float oldMass = _rb.mass;
             float newMass = _rb.mass + amount;
-            newMass = Mathf.Clamp(newMass, _minMass, _maxMass);
+
+            newMass = Mathf.Clamp(
+                newMass,
+                _minMass,
+                _maxMass
+            );
 
             _rb.mass = newMass;
         }
