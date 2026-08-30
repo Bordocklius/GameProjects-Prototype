@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(CommandTarget))]
     public class Pickupable : MonoBehaviour
     {
         [Header("References")]

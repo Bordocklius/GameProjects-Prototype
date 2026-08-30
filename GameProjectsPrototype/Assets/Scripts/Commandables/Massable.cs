@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
+    [RequireComponent(typeof(CommandTarget))]
     public class Massable : MonoBehaviour
     {
         [Header("References")]
