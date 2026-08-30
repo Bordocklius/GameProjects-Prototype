@@ -21,8 +21,9 @@ public class CharacterCamera : MonoBehaviour
 
     [Space(10), Header("Crosshair Settings")]
     [SerializeField] private RectTransform _crosshair;
-    [SerializeField] private float _commandRange = 50f;
-    [SerializeField] private float _carryRange = 10f;
+
+    [SerializeField] private float _commandRange = 5f;
+    [SerializeField] private float _carryRange = 5f;
 
     [Space(10), Header("Carry Settings")]
     [SerializeField] private Transform _carryPoint;
@@ -70,15 +71,16 @@ public class CharacterCamera : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        // Rotate player left/right
+        // Horizontal rotation
         _characterBody.Rotate(
             0,
             _lookInput.x * _mouseSensitivity,
             0
         );
 
-        // Rotate camera up/down
+        // Vertical rotation
         _rotationX -= _lookInput.y * _mouseSensitivity;
+
         _rotationX = Mathf.Clamp(
             _rotationX,
             _minVerticalAngle,
@@ -109,18 +111,38 @@ public class CharacterCamera : MonoBehaviour
 
     private void PlayerInput_Attack(object sender, EventArgs e)
     {
-        Ray ray = _camera.ScreenPointToRay(_crosshair.position);
+        Ray ray =
+            _camera.ScreenPointToRay(_crosshair.position);
 
-        if (!TryGetValidHit(ray, _commandRange, out RaycastHit hit))
+        if (!TryGetValidHit(
+            ray,
+            _commandRange,
+            out RaycastHit hit))
+        {
             return;
+        }
 
         GameObject obj = hit.collider.gameObject;
 
+        // Try current object first
         if (obj.TryGetComponent<ICommandTarget>(out var target))
         {
-            Debug.Log("Commandable");
-
             CommandSystem.Instance.SetTarget(obj);
+            CommandInput.Instance.Activate();
+
+            return;
+        }
+
+        // Also support colliders on children
+        ICommandTarget parentTarget =
+            hit.collider.GetComponentInParent<ICommandTarget>();
+
+        if (parentTarget != null)
+        {
+            GameObject targetObject =
+                ((Component)parentTarget).gameObject;
+
+            CommandSystem.Instance.SetTarget(targetObject);
             CommandInput.Instance.Activate();
         }
     }
@@ -138,25 +160,40 @@ public class CharacterCamera : MonoBehaviour
             return;
         }
 
-        Ray ray = _camera.ScreenPointToRay(_crosshair.position);
+        Ray ray =
+            _camera.ScreenPointToRay(_crosshair.position);
 
-        if (!TryGetValidHit(ray, _carryRange, out RaycastHit hit))
+        if (!TryGetValidHit(
+            ray,
+            _carryRange,
+            out RaycastHit hit))
+        {
             return;
+        }
 
-        Pickupable pickupable = hit.collider.GetComponentInParent<Pickupable>();
+        Pickupable pickupable =
+            hit.collider.GetComponentInParent<Pickupable>();
 
         if (pickupable != null)
         {
-            HandlePickup(pickupable, hit.point);
+            HandlePickup(
+                pickupable,
+                hit.point
+            );
         }
     }
 
-    private void HandlePickup(Pickupable target,Vector3 grabPoint)
+    private void HandlePickup(
+        Pickupable target,
+        Vector3 grabPoint)
     {
         _carrying = target;
         _isCarrying = true;
 
-        _carrying.PickUp(_carryPoint,grabPoint);
+        _carrying.PickUp(
+            _carryPoint,
+            grabPoint
+        );
     }
 
     private bool TryGetValidHit(
@@ -164,11 +201,13 @@ public class CharacterCamera : MonoBehaviour
         float range,
         out RaycastHit validHit)
     {
-        RaycastHit[] hits = Physics.RaycastAll(ray, range);
+        RaycastHit[] hits =
+            Physics.RaycastAll(ray, range);
 
         Array.Sort(
             hits,
-            (a, b) => a.distance.CompareTo(b.distance)
+            (a, b) =>
+                a.distance.CompareTo(b.distance)
         );
 
         foreach (RaycastHit hit in hits)
@@ -181,6 +220,7 @@ public class CharacterCamera : MonoBehaviour
         }
 
         validHit = default;
+
         return false;
     }
 

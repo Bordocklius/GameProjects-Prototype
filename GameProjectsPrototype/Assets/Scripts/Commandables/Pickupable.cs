@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class Pickupable : MonoBehaviour
     {
         [Header("References")]
@@ -83,18 +79,13 @@ namespace Assets.Scripts.Commandables
 
             _rb.maxLinearVelocity = maxVelocity;
 
-            // Velocity of the exact point we're holding
             Vector3 grabPointVelocity =
                 _rb.GetPointVelocity(worldGrabPoint);
 
-            // Spring-like pulling force
             Vector3 force =
                 direction * followForce
                 - grabPointVelocity * _velocityDamping;
 
-            // VERY IMPORTANT:
-            // Apply the force where the player grabbed the object,
-            // not at its center.
             _rb.AddForceAtPosition(
                 force,
                 worldGrabPoint,

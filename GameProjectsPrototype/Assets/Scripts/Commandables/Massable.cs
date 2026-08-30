@@ -6,12 +6,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.Commandables
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class Massable : MonoBehaviour
     {
-        [SerializeField] private float _massChange;
+        [Header("References")]
         [SerializeField] private Rigidbody _rb;
 
+        [Header("Mass Settings")]
+        [SerializeField] private float _massChange = 1f;
         [SerializeField] private float _minMass = 0.5f;
         [SerializeField] private float _maxMass = 5f;
 
