@@ -68,7 +68,6 @@ namespace Assets.Scripts.Commands
 
             _inputfield.text = "";
             _inputfield.gameObject.SetActive(false);
-            CommandSystem.Instance.SetTarget(null);
         }
 
         public void PlayerInput_SubmitCommand()

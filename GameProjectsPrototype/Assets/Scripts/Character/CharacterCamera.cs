@@ -35,9 +35,6 @@ public class CharacterCamera : MonoBehaviour
     private bool _isCarrying;
     private Pickupable _carrying;
 
-    private GameObject _potentialTarget;
-    private GameObject _memorizedTarget;
-
     private void Awake()
     {
         if (_playerInput == null)
@@ -70,63 +67,6 @@ public class CharacterCamera : MonoBehaviour
     {
         HandleCameraRotation();
         HandleCarryPoint();
-        HandlePotentialTarget();
-    }
-
-    private void HandlePotentialTarget()
-    {
-        _potentialTarget = GetPotentialTarget();
-
-        //if no change
-        if (_potentialTarget == null && _memorizedTarget == null) return;
-
-        //if we lose target
-        if (_potentialTarget == null && _memorizedTarget != null)
-        {
-            _memorizedTarget.GetComponent<Outline>().enabled = false;
-            _memorizedTarget = null;
-            return;
-        }
-
-        //if we get target
-        if (_memorizedTarget != _potentialTarget)
-        {
-            //if we change target
-            if (_memorizedTarget != null) _memorizedTarget.GetComponent<Outline>().enabled = false;
-
-            _memorizedTarget = _potentialTarget;
-            _potentialTarget.GetComponent<Outline>().enabled = true;
-            return;
-        }
-    }
-
-    private GameObject GetPotentialTarget()
-    {
-        //check if we already hold a interactable
-        if (CommandSystem.Instance.GetTarget() != null) return null;
-
-        Ray ray = _camera.ScreenPointToRay(_crosshair.position);
-
-        //check if it is a valid hit
-        if (!TryGetValidHit(ray, _commandRange, out RaycastHit hit)) return null;
-
-        GameObject obj = hit.collider.gameObject;
-
-        //check if we hit interactable
-        if (obj.TryGetComponent<ICommandTarget>(out var target))
-        {
-            return obj;
-        }
-
-        //check children objects as well
-        ICommandTarget parentTarget = hit.collider.GetComponentInParent<ICommandTarget>();
-
-        if (parentTarget != null)
-        {
-            return ((Component)parentTarget).gameObject;
-        }
-
-        return null;
     }
 
     private void HandleCameraRotation()

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb7a5349a75225409a125608a606909, type: 3}
   m_Name: ThrowCommand
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commands.ThrowCommand
-  CommandWord: Throw
+  CommandWord: 
