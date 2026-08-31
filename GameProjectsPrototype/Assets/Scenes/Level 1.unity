@@ -2226,14 +2226,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Move around with WASD
+  m_text: 'Move around with WASD, jump with SPACE
 
 
     Look around with the mouse
 
 
-    For hints
-    look at the bottom right!
+    For
+    hints look at the bottom right!
 
 
     Have fun!'
