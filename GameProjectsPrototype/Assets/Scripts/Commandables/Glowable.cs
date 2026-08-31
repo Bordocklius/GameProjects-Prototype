@@ -39,7 +39,7 @@ namespace Assets.Scripts.Commandables
             // If light already exists, disable for sure
             if (_light != null)
             {
-                _light.enabled = false;
+                //_light.enabled = false;
                 return;
             }
                 
