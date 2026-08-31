@@ -39,35 +39,29 @@ namespace Assets.Scripts.Commandables
         public void Shrink()
         {
             ChangeSize(-_growAmount);
-        }        
+        }
 
         private void ChangeSize(float amount)
         {
             float oldScale = _currentScale;
 
-            _currentScale = Mathf.Clamp(_currentScale + amount, _minScale, _maxScale);
+            _currentScale = Mathf.Clamp(
+                _currentScale + amount,
+                _minScale,
+                _maxScale
+            );
+
             float actualChange = _currentScale - oldScale;
 
             if (Mathf.Approximately(actualChange, 0f))
                 return;
 
-            //float oldscale = transform.localScale.x;
-            //float newScale = transform.localScale.x + amount;
-            //newScale = Mathf.Clamp(newScale, _minScale, _maxScale)  ;
-
-            //float actualChange = newScale - oldscale;
-
-            //transform.localScale = Vector3.one * newScale;
             transform.localScale = _originalScale * _currentScale;
 
-            // Compensate for larger scale if scaling up
-            if (actualChange > 0f)
-            {
-                Vector3 pos = _rb.position;
-                pos.y += actualChange / 2f;
+            Vector3 pos = _rb.position;
+            pos.y += (_originalScale.y * actualChange) / 2f;
 
-                _rb.MovePosition(pos);
-            }
+            _rb.MovePosition(pos);
         }
     }
 }

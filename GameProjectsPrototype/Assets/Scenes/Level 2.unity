@@ -3052,6 +3052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Scalable
   _growAmount: 1
   _rb: {fileID: 1694284014}
+  _collider: {fileID: 0}
   _minScale: 0.5
   _maxScale: 5
 --- !u!54 &1694284014
@@ -3503,9 +3504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c10430414cd07a419f8c041e0498c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Scalable
-  _growAmount: 1
+  _growAmount: 0.5
   _rb: {fileID: 1792015699}
-  _minScale: 0.5
+  _collider: {fileID: 0}
+  _minScale: 0.1
   _maxScale: 15
 --- !u!114 &1792015696
 MonoBehaviour:
@@ -3521,7 +3523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Massable
   _rb: {fileID: 1792015699}
   _massChange: 10
-  _minMass: 0
+  _minMass: 1
   _maxMass: 50
 --- !u!114 &1792015697
 MonoBehaviour:
