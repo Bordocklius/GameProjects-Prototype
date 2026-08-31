@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Commands
@@ -40,6 +41,8 @@ namespace Assets.Scripts.Commands
         {
             _target = target;
         }
+
+        public GameObject GetTarget() { return _target; }
 
         public void ExecuteCommand(string input)
         {
