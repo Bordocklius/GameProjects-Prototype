@@ -13,14 +13,22 @@ namespace Assets.Scripts.Commandables
     {
         [SerializeField] private float _growAmount = 1f;
         [SerializeField] private Rigidbody _rb;
+        [SerializeField] private Collider _collider;
 
         [SerializeField] private float _minScale = 0.5f;
         [SerializeField] private float _maxScale = 5f;
+
+        private Vector3 _originalScale;
+        private float _currentScale = 1f;
 
         private void Awake()
         {
             if(_rb == null)
                 _rb = GetComponent<Rigidbody>();
+            if(_collider == null)
+                _collider = GetComponent<Collider>();
+
+            _originalScale = transform.localScale;
         }
 
         public void Grow()
@@ -35,16 +43,25 @@ namespace Assets.Scripts.Commandables
 
         private void ChangeSize(float amount)
         {
-            float oldscale = transform.localScale.x;
-            float newScale = transform.localScale.x + amount;
-            newScale = Mathf.Clamp(newScale, _minScale, _maxScale)  ;
+            float oldScale = _currentScale;
 
-            float actualChange = newScale - oldscale;
+            _currentScale = Mathf.Clamp(_currentScale + amount, _minScale, _maxScale);
+            float actualChange = _currentScale - oldScale;
 
-            transform.localScale = Vector3.one * newScale;
+            if (Mathf.Approximately(actualChange, 0f))
+                return;
+
+            //float oldscale = transform.localScale.x;
+            //float newScale = transform.localScale.x + amount;
+            //newScale = Mathf.Clamp(newScale, _minScale, _maxScale)  ;
+
+            //float actualChange = newScale - oldscale;
+
+            //transform.localScale = Vector3.one * newScale;
+            transform.localScale = _originalScale * _currentScale;
 
             // Compensate for larger scale if scaling up
-            if(actualChange > 0f)
+            if (actualChange > 0f)
             {
                 Vector3 pos = _rb.position;
                 pos.y += actualChange / 2f;

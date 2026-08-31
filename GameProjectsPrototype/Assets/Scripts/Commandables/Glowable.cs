@@ -33,7 +33,7 @@ namespace Assets.Scripts.Commandables
         {
             CreateLight();
         }
-
+        
         private void CreateLight()
         {
             // If light already exists, disable for sure

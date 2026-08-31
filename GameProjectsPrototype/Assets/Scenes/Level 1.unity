@@ -2823,6 +2823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Scalable
   _growAmount: 1
   _rb: {fileID: 1179810874}
+  _collider: {fileID: 0}
   _minScale: 0.5
   _maxScale: 5
 --- !u!114 &1179810872
@@ -3767,8 +3768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Commandables.Scalable
   _growAmount: 1
   _rb: {fileID: 1622087941}
+  _collider: {fileID: 0}
   _minScale: 0.5
-  _maxScale: 5
+  _maxScale: 12
 --- !u!114 &1622087940
 MonoBehaviour:
   m_ObjectHideFlags: 0
