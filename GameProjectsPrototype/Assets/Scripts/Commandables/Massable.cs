@@ -24,6 +24,9 @@ namespace Assets.Scripts.Commandables
         public bool IsAtMaxMass =>
             Mathf.Approximately(_rb.mass, _maxMass);
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _heavier, _lighter;
+
         private void Awake()
         {
             if (_rb == null)

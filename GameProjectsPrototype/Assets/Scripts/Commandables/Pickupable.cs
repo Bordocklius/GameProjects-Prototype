@@ -28,6 +28,9 @@ namespace Assets.Scripts.Commandables
         // Where on the object the player grabbed it
         private Vector3 _localGrabPoint;
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _hover;
+
         private void Awake()
         {
             if (_rb == null)
@@ -109,14 +112,17 @@ namespace Assets.Scripts.Commandables
             _rb.useGravity = true;
 
             _rb.angularVelocity = Vector3.zero;
-        }
 
+            _audio.Play();
+        }
+            
         public void Drop()
         {
             _followTransform = null;
             _isPickedUp = false;
 
             _rb.useGravity = true;
+            _audio.Stop();
         }
     }
 }

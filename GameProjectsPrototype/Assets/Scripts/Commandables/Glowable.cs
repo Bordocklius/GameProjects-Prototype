@@ -22,6 +22,9 @@ namespace Assets.Scripts.Commandables
         private Renderer _renderer;
         private MaterialPropertyBlock _matPropertyBlock;
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _lighten, _dim;
+
         private void Awake()
         {
             _renderer = GetComponent<Renderer>();           
@@ -63,17 +66,23 @@ namespace Assets.Scripts.Commandables
         {
             SetEmission(true);
             Debug.Log(_light.transform.position);
+            _audio.PlayOneShot(_lighten);
 
             if (!_light.enabled)
+            {
                 _light.enabled = true;
+            }
         }
 
         public void DisableGlow()
         {
             SetEmission(false);
+            _audio.PlayOneShot(_dim);
 
             if (_light.enabled)
+            {
                 _light.enabled = false;
+            }
         }
 
         private void SetEmission(bool enabled)

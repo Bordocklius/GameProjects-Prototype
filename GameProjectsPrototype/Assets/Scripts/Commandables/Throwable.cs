@@ -11,6 +11,9 @@ namespace Assets.Scripts.Commandables
         [SerializeField] private float _throwForce = 20f;
         [SerializeField] private float _throwMaxVelocity = 50f;
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _throw;
+
         public void Throw()
         {
             Vector3 direction = Camera.main.transform.forward;
@@ -24,6 +27,7 @@ namespace Assets.Scripts.Commandables
             _rb.angularVelocity = Vector3.zero;
 
             _rb.AddForce(direction * _throwForce,ForceMode.Impulse);
+            _audio.PlayOneShot(_throw);
         }
     }
 }

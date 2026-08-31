@@ -21,6 +21,9 @@ namespace Assets.Scripts.Commandables
         private Vector3 _originalScale;
         private float _currentScale = 1f;
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _grow, _shrink;
+
         private void Awake()
         {
             if(_rb == null)
@@ -34,11 +37,13 @@ namespace Assets.Scripts.Commandables
         public void Grow()
         {
             ChangeSize(_growAmount);
+            _audio.PlayOneShot(_grow);
         }
 
         public void Shrink()
         {
             ChangeSize(-_growAmount);
+            _audio.PlayOneShot(_shrink);
         }
 
         private void ChangeSize(float amount)

@@ -10,6 +10,9 @@ namespace Assets.Scripts.Commandables
 
         private bool _isSticky;
 
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _sticky;
+
         private void OnCollisionEnter(Collision collision)
         {
             if (_isSticky && collision.gameObject.name != "Player")
@@ -27,6 +30,7 @@ namespace Assets.Scripts.Commandables
         public void MakeSticky()
         {
             _isSticky = true;
+            _audio.PlayOneShot(_sticky);
         }
 
         public void MakeNotSticky()

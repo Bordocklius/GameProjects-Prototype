@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 4375031921423221011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.675, z: 0.378}
+  m_LocalPosition: {x: 0, y: 0.675, z: 0.242}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -393,9 +393,10 @@ MonoBehaviour:
   _minVerticalAngle: -90
   _maxVerticalAngle: 90
   _crosshair: {fileID: 0}
-  _carryPoint: {fileID: 1734213370495806654}
   _commandRange: 50
   _carryRange: 10
+  _carryPoint: {fileID: 1734213370495806654}
+  _carryDistance: 3
 --- !u!1 &5353348510873471021
 GameObject:
   m_ObjectHideFlags: 0
