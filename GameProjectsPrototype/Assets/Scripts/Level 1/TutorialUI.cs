@@ -17,7 +17,9 @@ namespace Assets.Scripts.UI
             "Mass",
             "Lighten",
             "Grow",
-            "Shrink"
+            "Shrink",
+            "Glow",
+            "Dim"
         };
 
         private void Start()
