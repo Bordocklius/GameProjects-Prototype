@@ -8,13 +8,22 @@ namespace Assets.Scripts.Commandables
     {
         [SerializeField] private Rigidbody _rb;
 
-        [SerializeField] private float _throwForce;
+        [SerializeField] private float _throwForce = 20f;
+        [SerializeField] private float _throwMaxVelocity = 50f;
 
         public void Throw()
         {
             Vector3 direction = Camera.main.transform.forward;
-            GetComponent<Pickupable>().Drop();
-            _rb.AddForce(direction * _throwForce, ForceMode.Impulse);
+
+            if (TryGetComponent(out Pickupable pickupable))
+            {
+                pickupable.Drop();
+            }
+            _rb.maxLinearVelocity = _throwMaxVelocity;
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+
+            _rb.AddForce(direction * _throwForce,ForceMode.Impulse);
         }
     }
 }
